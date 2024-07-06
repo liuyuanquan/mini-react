@@ -1,6 +1,6 @@
-import { Component } from 'react';
-import ReactDOM from './mini-react/react-dom.js';
-import './index.css';
+import { Component } from './mini-react/react'
+import ReactDOM from './mini-react/react-dom.js'
+import './index.css'
 
 class ClassComponent extends Component {
   constructor(props) {
