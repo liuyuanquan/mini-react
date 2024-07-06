@@ -1,10 +1,8 @@
 function render(element, container) {
-  console.log('~~~~~~~', element)
   const dom = renderDom(element)
   container.appendChild(dom)
 }
 
-// 将 React.Element 渲染为真实 dom
 function renderDom(element) {
   let dom = null // 要返回的 dom
   
@@ -30,8 +28,8 @@ function renderDom(element) {
     dom = document.createDocumentFragment()
     for(let item of element) {
       let child = renderDom(item)
-      console.log('%%%%%%%', item, child)
       if (child) {
+        // 需要判断child是否为null
         dom.appendChild(child)
       }
     }
@@ -40,9 +38,7 @@ function renderDom(element) {
 
   const {
     type,
-    props: { 
-      children 
-    },
+    props: { children, ...attributes },
   } = element
 
   if (typeof type === 'string') {
@@ -74,7 +70,36 @@ function renderDom(element) {
       dom.appendChild(childrenDom)
     }
   }
+
+  updateAttributes(dom, attributes)
+
   return dom
+}
+
+// 更新 dom 属性
+function updateAttributes(dom, attributes) {
+  Object.keys(attributes).forEach(key => {
+    if (key.startsWith('on')) {
+      const eventName = key.slice(2).toLowerCase()
+      // 事件的处理
+      dom.addEventListener(eventName, attributes[key])
+    } else if (key === 'className') {
+      // className 的处理
+      const classes = attributes[key].split(' ')
+      classes.forEach(classKey => {
+        dom.classList.add(classKey)
+      })
+    } else if (key === 'style') {
+      // style处理
+      const style = attributes[key]
+      Object.keys(style).forEach((styleName) => {
+        dom.style[styleName] = style[styleName]
+      })
+    } else {
+      // 其他属性的处理
+      dom[key] = attributes[key]
+    }
+  })
 }
 
 const ReactDOM = {

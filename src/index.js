@@ -33,7 +33,7 @@ const jsx = (
     <FunctionComponent value={100} />
     <div className="deep2-box-1">
       <a href="https://github.com/zh-lx/mini-react">mini react link</a>
-      <p style={{ color: 'red' }}> this is a red p</p>
+      <p style={{ color: 'red', backgroundColor: 'yellow' }}> this is a red p</p>
       <div className="deep3-box">
         {true && <div>condition true</div>}
         {false && <div>condition false</div>}
