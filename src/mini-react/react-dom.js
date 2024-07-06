@@ -1,6 +1,7 @@
+import { createRoot } from './fiber'
+
 function render(element, container) {
-  const dom = renderDom(element)
-  container.appendChild(dom)
+  createRoot(element, container)
 }
 
 function renderDom(element) {
