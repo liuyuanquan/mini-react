@@ -1,4 +1,5 @@
 function render(element, container) {
+  console.log('~~~~~~~', element)
   const dom = renderDom(element)
   container.appendChild(dom)
 }
