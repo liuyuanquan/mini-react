@@ -5,6 +5,17 @@ import { commitRoot } from './commit'
 let nextUnitOfWork = null
 let workInProgressRoot = null // 当前工作的 fiber 树
 let currentRoot = null // 上一次渲染的 fiber 树
+let deletions = [] // 要执行删除 dom 的 fiber
+
+// 将某个 fiber 加入 deletions 数组
+export function deleteFiber(fiber) {
+  deletions.push(fiber)
+}
+
+// 获取 deletions 数组
+export function getDeletions() {
+  return deletions
+}
 
 export function createRoot(element, container) {
   workInProgressRoot = {
@@ -103,6 +114,7 @@ function workLoop(deadline) {
     commitRoot(workInProgressRoot)
     currentRoot = workInProgressRoot
     workInProgressRoot = null
+    deletions = []
   }
   requestIdleCallback(workLoop)
 }
