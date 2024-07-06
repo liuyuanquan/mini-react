@@ -4,8 +4,14 @@ import './index.css';
 
 class ClassComponent extends Component {
   constructor(props) {
-    super(props);
-    this.state = {};
+    super(props)
+    this.state = { count: 1 }
+  }
+
+  addCount = () => {
+    this.setState({
+      count: this.state.count + 1,
+    })
   }
 
   render() {
@@ -13,8 +19,10 @@ class ClassComponent extends Component {
       <div className="class-component">
         <div>this is a class Component</div>
         <div>prop value is: {this.props.value}</div>
+        <div>count is: {this.state.count}</div>
+        <input type="button" value="add count" onClick={this.addCount} />
       </div>
-    );
+    )
   }
 }
 
@@ -47,11 +55,11 @@ const jsx = (
       </div>
     </div>
     <div className="deep2-box-2">
-      {['item1', 'item2', 'item3'].map((item) => (
-        <li key={item}>{item}</li>
+      {Array.from({ length: 3 }).map((i, index) => (
+        <li key={index}>item{index + 1}</li>
       ))}
     </div>
   </div>
 );
 
-ReactDOM.render(jsx, document.getElementById('root'));
+ReactDOM.render(jsx, document.getElementById('root'))
